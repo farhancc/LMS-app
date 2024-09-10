@@ -1,12 +1,14 @@
 import { CatchAsyncError } from "../middlewares/catchAsyncError"
 import User from "../models/user.models"
 import { Response } from "express"
+import { redis } from "../utils/redis"
 
 export const getUserById=async(id:string,res:Response)=>{
-    const user=await User.findById(id)
-    // if(!user)
+    const userJson=await redis.get(id)
+    if(userJson){
+        const user=JSON.parse(userJson)
     res.status(201).json({
         status:'success'
         ,user
-    })
+    })}
 }

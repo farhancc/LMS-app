@@ -43,17 +43,17 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       required: [true, "Please enter your password"],
       minLength: [6, "Password should be greater than 6 characters"],
     },
-    confirmpassword: {
-      type: String,
-      required: [true, "you forgot the confirm password field"],
-      validate: {
-        validator: function (el) {
-          if (this.password === el) return true;
-          return false;
-        },
-        message: "password and confirm password must be same",
-      },
-    },
+    // confirmpassword: {
+    //   type: String,
+    //   required: [true, "you forgot the confirm password field"],
+    //   validate: {
+    //     validator: function (el) {
+    //       if (this.password === el) return true;
+    //       return false;
+    //     },
+    //     message: "password and confirm password must be same",
+    //   },
+    // },
     avatar: {
       public_id: String,
       url: String,
@@ -84,7 +84,7 @@ userSchema.pre<IUser>("save", async function (next) {
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-  this.confirmpassword = undefined;
+  // this.confirmpassword = undefined;
   next();
 });
 userSchema.methods.signAcessToken=function(){
