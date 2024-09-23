@@ -17,8 +17,8 @@ app.use(express.json({ limit: "50MB" }));
 app.use(cookieParser());
 app.use(cors({ origin: process.env.ORIGIN }));
 // routers
-app.use("/api/v1", userRoute);
 app.use("/api/v1/course",courseRoute);
+app.use("/api/v1", userRoute);
 // TESTING API
 app.get("/test", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({ success: true, message: "hello" });
