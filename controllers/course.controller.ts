@@ -5,6 +5,8 @@ import { CatchAsyncError } from "../middlewares/catchAsyncError";import cloudina
 import { createCourse } from "../services/course.services";
 import { kMaxLength } from "buffer";
 import { redis } from "../utils/redis";
+import User from "../models/user.models";
+import mongoose from "mongoose";
 
 export const UploadCourse=CatchAsyncError(async(req:Request,res:Response,next:NextFunction)=>{
 const data=req.body;
@@ -79,4 +81,69 @@ res.status(200).json({
     status:"success",
     courses
 })}
+})
+
+// get courses for a user 
+
+export const getACourseForUser=CatchAsyncError(async (req:Request,res:Response,next:NextFunction)=>{
+const courseList=req.user?.courses
+const courseid=req.params.courseId
+// if(courses.includes(courseid))
+const courseExist= courseList?.find((course:any)=>{course._id.toString=== courseid})
+if(!courseExist){
+    
+    return next(new ErrorHandler('course not purchased',404))
+}
+const course=(await Course.findById(courseid)).courseData
+res.status(200).json({
+    status:"success",
+    course
+})
+})
+
+// add question in course
+interface IAddQuestionData{
+    question:string;
+    courseId:string;
+    contentId:string;
+}
+export const addQuestion=CatchAsyncError(
+    async(req:Request,res:Response,next:NextFunction)=>{
+            const {question,courseId,contentId}:IAddQuestionData=req.body;
+            // console.log(courseId,question,contentId,"courseId,question,contentId....")
+            if(!mongoose.Types.ObjectId.isValid(contentId)){
+                return next(new ErrorHandler('invalid content id',400))
+            }
+            // const courseId=req.params.courseId
+            const course=await Course.findById(courseId)
+            const courseContent=course?.courseData?.find((item:any)=>{return item._id.equals(contentId)})
+      
+            
+            if(!courseContent){
+                return next(new ErrorHandler('invalid content id',400))
+            }
+            const newQuestion:any={
+                user:req.user,
+                question,
+                questionReplies:[]
+
+            }
+            // add this question to course content
+            courseContent.questions.push(newQuestion)
+            await course.save()
+            res.status(200).json({
+                status:"success",
+                question
+            })
+           }
+
+)
+
+// interface IaddAnswerData{
+// answer:string;
+// courseId:string;
+// contentId:string;
+// }
+export const addAnswers=CatchAsyncError(    async(req:Request,res:Response,next:NextFunction)=>{
+    
 })
