@@ -2,7 +2,7 @@ import mongoose,{Document,Model,Schema} from "mongoose";
 interface IComment extends Document{
     user:object;
     question:string;
-    questionReplies?:object
+    questionReplies?:[object]
     }
 interface IReview extends Document{
 user:object;
