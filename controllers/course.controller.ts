@@ -236,3 +236,67 @@ export const addAnswers = CatchAsyncError(
     });
   }
 );
+
+// add review
+interface IaddReview{
+  comment:string;
+  rating:number;
+
+}
+export const addReview= CatchAsyncError(async(req: Request, res: Response, next: NextFunction) => {
+  const {comment,rating}:IaddReview=req.body
+  const courseId=req.params.courseid
+  const isBougth=req.user?.courses?.find((e:any)=>{
+    return e?.courseId===courseId
+  })
+  // console.log(req.user,courseId,isBougth,'is bought'); 
+  
+  if(!isBougth){
+    return next(new ErrorHandler('please buy course to revieweee',400)) 
+  }
+  const user=req?.user
+const review:any={
+  user,
+  comment,
+  rating,
+}
+const course=await Course.findById(courseId)
+course?.reviews.push(review)
+// console.log(course,'end of course',courseId,review);
+let avg=(course.reviews.reduce((a,c)=>a+c?.rating,0))/course.reviews.length
+course.ratings=avg;
+console.log(avg,course,'avg');
+await course.save()
+// const
+res.status(200).json({
+status:'success',
+user,
+course
+})
+
+})
+
+// export const buyCourse= CatchAsyncError(async (req: Request, res: Response, next: NextFunction)=>{
+//   if(!req?.user){
+//     return next(new ErrorHandler('please login',400))
+//   }
+//   const courseId=req.params.courseid
+//   const isBougth=req.user?.courses?.find((e:any)=>{
+//     return e?.courseId===courseId
+//   })
+//   if(isBougth)return next(new ErrorHandler('already bought',400))
+// // const {,}
+// const course={courseId}
+// const userId=req?.user?._id
+// const user=await User.findById(userId)
+// user?.courses?.push( course)
+// user?.save()
+// // console.log(user,'ssssssssss');
+// res.status(200).json({
+//   status:'success',
+//   user
+// })
+
+
+
+})
