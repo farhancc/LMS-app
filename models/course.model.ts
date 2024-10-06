@@ -1,15 +1,17 @@
 import mongoose,{Document,Model,Schema} from "mongoose";
+import { IUser } from "./user.models";
 interface IComment extends Document{
     user:object;
-    comment:string
-    commentReplies?:object
+    question:string;
+    questionReplies?:[object]
     }
 interface IReview extends Document{
-user:object;
-product:string;
+user:IUser;
+// product:string;
 rating:number;
 comment:string
-commentReplies:IComment[];
+commentReplies?:IComment[];
+
 }
 interface ILink extends Document{
     title:string;
@@ -55,7 +57,7 @@ purchased?:number;
 const reviewSchema=new Schema<IReview>({
     user:Object,
     rating:{
-        typ:Number,
+        type:Number,
         default:0,
        },
        comment:String,
@@ -67,8 +69,8 @@ const linkSchema = new Schema<ILink>({
 })
 const commentSchema =new Schema<IComment>({
     user:Object,
-    comment:String,
-    commentReplies:[Object]
+    question:String,
+    questionReplies:[Object]
 
 })
 
@@ -100,9 +102,9 @@ const courseSchema =new Schema<ICourse>({
     },
     estimatedPrice:Number,
     thumbnail:{
-        public_id:{type:String,required:true},
+        public_id:{type:String},
         url:{
-            required:true,
+            
             type:String
         },
 
@@ -116,8 +118,10 @@ const courseSchema =new Schema<ICourse>({
         required:true
     },
 
-   demoUrl:{type:String,
-    required:true},
+   demoUrl:{
+    type:String,
+    required:true
+},
     benefits:[{title:String}],
     prerequesites:[{title:String}],
     reviews:[reviewSchema],
@@ -134,3 +138,4 @@ const courseSchema =new Schema<ICourse>({
 })
 
 const Course:Model<ICourse>=mongoose.model("Course",courseSchema)
+export default Course

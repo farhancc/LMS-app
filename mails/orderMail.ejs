@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>You bought <%=order?.name%></title>
+    <style>
+      /* Fallback for email clients that don't support embedded styles */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        width: 100%;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .email-content {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        padding-bottom: 20px;
+      }
+      .header img {
+        max-width: 150px;
+      }
+      .greeting {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      .message {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333333;
+      }
+      .activation-code {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff6600;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .cta-button {
+        display: block;
+        width: 200px;
+        margin: 0 auto;
+        padding: 15px 0;
+        background-color: #ff6600;
+        color: #ffffff;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #777777;
+        margin-top: 30px;
+      }
+      @media only screen and (max-width: 600px) {
+        .email-content {
+          padding: 20px;
+        }
+        .cta-button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="email-content">
+        <!-- Header Section -->
+        <div class="header"></div>
+
+        <!-- Greeting -->
+        <p class="greeting">Hello ,</p>
+
+        <!-- Message -->
+        <p class="message">
+          Thank you for enrolling for our course
+        </p>
+
+
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>
+            If you have any concerns
+            contact our support team.
+          </p>
+          <p>
+            Contact us:
+            <a href="mailto:support@example.com">support@example.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
