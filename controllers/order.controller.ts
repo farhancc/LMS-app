@@ -68,3 +68,11 @@ newOrder(data,res,next);
 }
 
 )
+export const getAllOrder=CatchAsyncError(async (req: Request, res: Response, next: NextFunction)=>{
+    const orders=await Order.find()
+    res.status(201).json({
+      status: "success",
+      length:orders.length,
+      orders,
+    });
+})

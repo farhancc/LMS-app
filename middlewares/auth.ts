@@ -17,12 +17,16 @@ export const isAuthenticated=CatchAsyncError(async(req:Request,res:Response,next
  if(!user){
     return next(new ErrorHandler('user not found',400))
  }
+//  console.log(user,"------------",JSON.parse(user));
+ 
  req.user=JSON.parse(user)
  next()
 })
 export const autharizeRole=(...roles:string[])=>{
     return (req:Request,res:Response,next:NextFunction)=>{
-    if(!roles.includes(req.user?.role||'')){
+    if(!(roles.some((el:any)=>el==req.user?.role))){
+        // console.log(roles,'rolesssss',(roles.some((el:any)=>el==req.user?.role)),req.user);
+        
         return next(new ErrorHandler(`you are not allowed to access the data`,400))
     }
     next()

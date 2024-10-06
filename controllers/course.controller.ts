@@ -312,3 +312,15 @@ course
 
 
 // })
+export const deleteCourse= CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const {courseId}=req.body
+  const course=  await Course.findById(courseId)
+if(!course)return next(new ErrorHandler('course not found',404))
+await course.deleteOne({courseId})
+await redis.del(courseId)
+
+    res.status(201).json({
+      status: "success"
+    });
+  })

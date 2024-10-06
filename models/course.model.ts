@@ -53,6 +53,7 @@ reviews:IReview[];
 courseData:ICourseData[]
 ratings?:number;
 purchased?:number;
+createdAt:Date;
 }
 const reviewSchema=new Schema<IReview>({
     user:Object,
@@ -135,7 +136,7 @@ const courseSchema =new Schema<ICourse>({
         default:0
     }
 
-})
+},{timestamps:true})
 
 const Course:Model<ICourse>=mongoose.model("Course",courseSchema)
 export default Course

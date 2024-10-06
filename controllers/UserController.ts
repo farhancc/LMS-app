@@ -309,3 +309,46 @@ export const updateProfilePicture = CatchAsyncError(
     res.status(200).json({status:"success",user})
   }
 );
+
+// get all users
+export const getAllUsers = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const users=await User.find()
+    res.status(201).json({
+      status: "success",
+      length:users.length,
+      users,
+    });
+  })
+interface IUpdaterole{
+  userId:string;
+  role:string
+}
+  export const updateRole = CatchAsyncError(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const {userId,role}:IUpdaterole=req.body
+    const user=  await User.findById(userId)
+if(!user)return next(new ErrorHandler('no user  found',404))
+  user.role=role
+user?.save()
+     
+      res.status(201).json({
+        status: "success",
+        user,
+      });
+    })
+  
+    export const deleteUser = CatchAsyncError(
+      async (req: Request, res: Response, next: NextFunction) => {
+        const {userId}=req.body
+      const user=  await User.findById(userId)
+  if(!user)return next(new ErrorHandler('no user  found',404))
+    await user.deleteOne({userId})
+  await redis.del(userId)
+
+        res.status(201).json({
+          status: "success"
+        });
+      })
+    
+      

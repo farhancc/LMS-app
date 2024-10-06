@@ -4,6 +4,7 @@ export interface Iorder extends Document{
 courseId: string,
 userId:string,
 payment_info:object
+createdAt:Date
 }
 const OrderSchema=new mongoose.Schema<Iorder>(
     {

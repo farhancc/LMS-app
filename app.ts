@@ -11,6 +11,7 @@ import userRoute from "./routes/UserRouts";
 import courseRoute from "./routes/course.route";
 import Orderrouter from "./routes/order.route";
 import NotificationRouter from "./routes/notification.route";
+import analyticRouter from "./routes/analytics.route";
 // body parser
 app.use(express.json({ limit: "50MB" }));
 
@@ -18,6 +19,7 @@ app.use(express.json({ limit: "50MB" }));
 app.use(cookieParser());
 app.use(cors({ origin: process.env.ORIGIN }));
 // routers
+app.use("/api/v1/analytics",analyticRouter);
 app.use("/api/v1/course",courseRoute);
 app.use("/api/v1/order",Orderrouter);
 app.use("/api/v1/notification",NotificationRouter);
