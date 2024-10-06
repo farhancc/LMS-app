@@ -4,6 +4,7 @@ interface Inotification{
     title:string;
     message:string;
     status:string;
+    createdAt:Date
 
 }
 const notificationSchema=new mongoose.Schema<Inotification>(
@@ -25,7 +26,7 @@ userId:{
     type:String,
     required:true
 }
-    }
+    },{timestamps:true}
 )
  const Notification:Model<Inotification>=mongoose.model('Notification',notificationSchema)
 export default Notification
