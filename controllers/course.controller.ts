@@ -10,6 +10,7 @@ import mongoose from "mongoose";
 import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
+import Notification from "../models/notification.modal";
 
 export const UploadCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -154,6 +155,11 @@ export const addQuestion = CatchAsyncError(
     };
     // add this question to course content
     courseContent.questions.push(newQuestion);
+    await Notification.create({
+      userId:req.user.id,
+      title:'New Question',
+      message:'You have new question from '+courseContent?.title
+  }) 
     await course.save();
     res.status(200).json({
       status: "success",
@@ -178,7 +184,7 @@ export const addAnswers = CatchAsyncError(
         return id === courseId;
       })
     )
-      console.log("hello");
+      // console.log("hello");
 
     if (!mongoose.Types.ObjectId.isValid(contentId)) {
       return next(new ErrorHandler("invalid content id", 400));
@@ -205,7 +211,13 @@ export const addAnswers = CatchAsyncError(
     question?.questionReplies.push(newReply);
     await course?.save();
     if (req.user?._id === question?.user?._id) {
-      // notification
+      
+      await Notification.create({
+        userId:req.user.id,
+        title:'New Answer for your question',
+        message:'You have new answer for question from '+courseContent?.title
+    }) 
+
     } else {
       const data = {
         name: question?.user?.name,

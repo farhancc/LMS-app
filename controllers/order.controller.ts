@@ -57,10 +57,9 @@ try{
 user?.courses.push(course.id)
 
 await user?.save()
-const notification=await Notification.create({
+await Notification.create({
     userId:user._id,
     title:'New Order',
-    type:'success',
     message:'You have new order from '+course?.name
 }) 
 course.purchased?course.purchased++:course.purchased
