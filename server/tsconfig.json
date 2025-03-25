@@ -1,7 +1,15 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
-    // other options...
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true
+  },
+  "ts-node": {
+    "esm": true
   }
 }

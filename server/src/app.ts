@@ -25,8 +25,8 @@ app.use("/api/v1/course",courseRoute);
 app.use("/api/v1/order",Orderrouter);
 app.use("/api/v1/layout",Layoutrouter);
 app.use("/api/v1/notification",NotificationRouter);
-
 app.use("/api/v1", userRoute);
+
 // TESTING API
 app.get("/test", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({ success: true, message: "hello" });
@@ -39,3 +39,5 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(err);
 });
 app.use(ErrorMiddleware);
+
+export default app
