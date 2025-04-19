@@ -1,7 +1,10 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-require("dotenv").config()
+// require("dotenv").config()
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export interface IUser extends Document {

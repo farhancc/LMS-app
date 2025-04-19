@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 import { Request, Response, NextFunction } from "express";
 import express from "express";
 import { ErrorMiddleware } from "./middlewares/error";
@@ -13,6 +13,10 @@ import Orderrouter from "./routes/order.route";
 import NotificationRouter from "./routes/notification.route";
 import analyticRouter from "./routes/analytics.route";
 import Layoutrouter from "./routes/layout.route";
+import dotenv from 'dotenv';
+import { healthcheck } from "./controllers/health.controller";
+dotenv.config();
+
 // body parser
 app.use(express.json({ limit: "50MB" }));
 
@@ -26,6 +30,7 @@ app.use("/api/v1/order",Orderrouter);
 app.use("/api/v1/layout",Layoutrouter);
 app.use("/api/v1/notification",NotificationRouter);
 app.use("/api/v1", userRoute);
+app.use("/health",healthcheck);
 
 // TESTING API
 app.get("/test", (req: Request, res: Response, next: NextFunction) => {

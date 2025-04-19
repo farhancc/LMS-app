@@ -17,7 +17,10 @@ import { redis } from "../utils/redis";
 import { getUserById } from "../services/user.services";
 import { Redis, RedisKey } from "ioredis";
 import cloudinary from "cloudinary";
-require("dotenv").config();
+// require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 interface IRegistrationBody {
   name: string;

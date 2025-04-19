@@ -1,7 +1,10 @@
-require('dotenv').config()
+// require('dotenv').config()
 import { Response } from "express"
 import { IUser } from "../models/user.models"
 import { redis } from "./redis"
+import dotenv from 'dotenv';
+dotenv.config();
+
 interface ITokenOptions{
     expires:Date;
     maxAge:number;

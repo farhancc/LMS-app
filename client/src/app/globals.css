@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@theme {
+  --color-foreground-rgb: rgb(0, 0, 0); 
+  --color-background-start-rgb: rgb(214, 219, 220); 
+  --color-background-end-rgb:rgb( 255, 255, 255); 
+  --font-poppins: "Poppins", sans-serif;
+  --font-josefin: "Josefin", serif;
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1800px;
+}
+@variant dark (&:where(.dark, .dark *));
+
+/* background Image: {
+  'gradient-radial': 'radial-gradient(var(-tw-gradient-stops))',
+  'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+} */
+ 
+/* @media (prefers-color-scheme: dark) { 
+12 
+:root { 
+13 
+-foreground-rgb: 255, 255, 255; 
+14 
+--background-start-rgb: 0, 0, 0; 
+15 
+-background-end-rgb: 0, 0, 0; 
+} 
+} */
