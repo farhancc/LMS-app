@@ -55,8 +55,12 @@ export const signUp = CatchAsyncError(
         message: "please check your mail to activate account",
         activationToken: activationToken.token,
       });
-    } catch (err) {
-      return next(new ErrorHandler(err.message, 400));
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        return next(new ErrorHandler(err.message, 400));
+      } else {
+        return next(new ErrorHandler('Unknown error occurred', 400));
+      }
     }
     next();
   }
@@ -66,15 +70,31 @@ interface IActivationToken {
   token: string;
   activationCode: string;
 }
+// export const createActivationToken = (newUser: any): IActivationToken => {
+//   const activationCode = Math.floor(Math.random() * 9000 + 1000).toString();
+//   const token = jwt.sign(
+//     { newUser, activationCode },
+//     process.env.JWT_SECRET_KEY,
+//     {
+//       expiresIn: "50m",
+//     }
+//   );
+//   return { token, activationCode };
+// };
 export const createActivationToken = (newUser: any): IActivationToken => {
-  const activationCode = Math.floor(Math.random() * 9000 + 1000).toString();
-  const token = jwt.sign(
+  const activationCode: string = Math.floor(Math.random() * 9000 + 1000).toString();
+
+  const jwtSecret = process.env.JWT_SECRET_KEY;
+  if (!jwtSecret) {
+    throw new Error('JWT_SECRET_KEY is not defined in environment variables');
+  }
+
+  const token: string = jwt.sign(
     { newUser, activationCode },
-    process.env.JWT_SECRET_KEY,
-    {
-      expiresIn: "50m",
-    }
+    jwtSecret,
+    { expiresIn: '50m' }
   );
+
   return { token, activationCode };
 };
 

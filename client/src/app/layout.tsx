@@ -25,13 +25,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} ${JosefinSans.variable}`}>
+      <body
+        className={`${poppins.variable} ${JosefinSans.variable} !bg-white bg-no-repeat dark:from-gray-900 dark:to-black duration-300`}
+        suppressHydrationWarning
+      >
         <ThemeProvider>
-          <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+          <div className="min-h-screen bg-gray-50 dark:bg-gray-900 ">
             <div className="container mx-auto">{children}</div>
           </div>
         </ThemeProvider>
-        {children}
       </body>
     </html>
   );
