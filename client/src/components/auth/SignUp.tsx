@@ -28,8 +28,9 @@ const SignUp: FC<Props> = (props: Props) => {
   const formik = useFormik({
     initialValues: { email: "", password: "", name: "" },
     validationSchema: schema,
-    onSubmit: async ({ name }) => {
-      // console.log(email, password);
+    onSubmit: async ({ email, password, name }) => {
+      console.log(email, password, name);
+      props.setRoute("verification");
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
@@ -51,8 +52,8 @@ const SignUp: FC<Props> = (props: Props) => {
             errors.name && touched.name && "border-red-500"
           } w-full text-black dark:text-white bg-transparent border rounded h-[40px] px-2 outline-none mt-[10px] font-Poppins mb-3`}
         />
-        {errors.email && touched.email && (
-          <span className="text-red-500 pt-2 block">{errors.email}</span>
+        {errors.name && touched.name && (
+          <span className="text-red-500 pt-2 block">{errors.name}</span>
         )}
         <label className={`${styles.label} `} htmlFor="email">
           Enter your Email
@@ -107,7 +108,7 @@ const SignUp: FC<Props> = (props: Props) => {
         <div className="w-full mt-5">
           <input
             type="submit"
-            value={"login"}
+            value={"Sign Up"}
             className={`{${styles.button}}`}
           />
         </div>

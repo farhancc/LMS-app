@@ -1,52 +1,43 @@
 "use client";
-import Heading from "@/utils/Heading";
-import { FC, useState } from "react";
-import Header from "../components/Header";
-import Hero from "../components/Route/Hero";
-import CustomModal from "@/utils/CustomModal";
-import Login from "../components/auth/Login";
-import SignUp from "@/components/auth/SignUp";
+import React, { FC, useEffect, useState } from "react";
+import Heading from "./utils/Heading";
+import Header from "./components/Header";
+import Hero from "./components/Route/Hero";
+import Courses from "./components/Route/Courses";
+import Reviews from "./components/Route/Reviews";
+import FAQ from "./components/FAQ/FAQ";
+import Footer from "./components/Footer";
+
 interface Props {}
-const Page: FC<Props> = () => {
-  const [activeItem, setActiveItem] = useState("Home");
+
+const Page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
-  const [route, setRoute] = useState("home");
+  const [activeItem, setActiveItem] = useState(0);
+  const [route, setRoute] = useState("Login");
+
   return (
-    <div className="">
+    <>
       <Heading
-        title="E learning "
-        description="Lms team from kerala"
-        keywords={["lms", "learning site"]}
+        title="ELearning"
+        description="ELearning is a platform for students to learn and get help from teachers"
+        keywords="Prograaming,MERN,Redux,Machine Learning"
       />
-      <Header
-        open={open}
-        setOpen={setOpen}
-        activeItem={activeItem}
-        route={route}
-        setRoute={setRoute}
-      />
-      <Hero />
-      {route === "login" ? (
-        <CustomModal
+      <div suppressHydrationWarning={true}>
+        <Header
           open={open}
           setOpen={setOpen}
-          title=""
           activeItem={activeItem}
-          component={<Login setRoute={setRoute} />}
           setRoute={setRoute}
+          route={route}
         />
-      ) : (
-        <CustomModal
-          open={open}
-          setOpen={setOpen}
-          title="SignUp"
-          activeItem={activeItem}
-          component={<SignUp setRoute={setRoute} />}
-          // component={<div>SignUp</div>}
-          setRoute={setRoute}
-        />
-      )}
-    </div>
+        <Hero />
+        <Courses />
+        <Reviews />
+        <FAQ />
+        <Footer />
+      </div>
+    </>
   );
 };
+
 export default Page;
